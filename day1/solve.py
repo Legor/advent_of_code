@@ -1,23 +1,24 @@
 from pathlib import Path
 from itertools import combinations
 
-def solve_first(input_file):
-    """Solve first part of the puzzle"""
-    raw_input = [int(x) for x in Path('./input.txt').read_text().splitlines()]
-    for c in combinations(raw_input, 2):
-        if c[0] + c[1] == 2020:
-            return c[0] * c[1]
 
+def solve(input_file, combination_size):
+    """Solve first or second part of the puzzle"""
 
-def solve_second(input_file):
-    """Solve first part of the puzzle"""
+    def prod(numbers):
+        y = 1
+        for x in numbers:
+            y *= x
+        return y
+
     raw_input = [int(x) for x in Path('./input.txt').read_text().splitlines()]
-    for c in combinations(raw_input, 3):
-        if c[0] + c[1] + c[2] == 2020:
-            return c[0] * c[1] * c[2]
+    for c in combinations(raw_input, combination_size):
+        if sum(c) == 2020:
+            return prod(c)
+
 
 if __name__ == "__main__":
 
     input_file = 'input.txt'
-    print(f"Solution to first puzzle: {solve_first(input_file)}")
-    print(f"Solution to second  puzzle: {solve_second(input_file)}")
+    print(f"Solution to first puzzle: {solve(input_file, 2)}")
+    print(f"Solution to second  puzzle: {solve(input_file, 3)}")
