@@ -37,5 +37,5 @@ def solve_second(input_file):
 if __name__ == "__main__":
 
     input_file = 'input.txt'
-    print(f"Solution of first puzzle: {solve_first(input_file)}")
-    print(f"Solution of second  puzzle: {solve_second(input_file)}")
+    print(f"Solution to first puzzle: {solve_first(input_file)}")
+    print(f"Solution to second  puzzle: {solve_second(input_file)}")
