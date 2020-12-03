@@ -1,16 +1,10 @@
 from pathlib import Path
 from itertools import combinations
+from utils import prod
 
 
 def solve(input_file, combination_size):
     """Solve first or second part of the puzzle"""
-
-    def prod(numbers):
-        y = 1
-        for x in numbers:
-            y *= x
-        return y
-
     raw_input = [int(x) for x in Path('./input.txt').read_text().splitlines()]
     for c in combinations(raw_input, combination_size):
         if sum(c) == 2020:
