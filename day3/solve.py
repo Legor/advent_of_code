@@ -27,7 +27,6 @@ def solve_first(input_file):
 
 
 def solve_second(input_file):
-
     slopes = [(1, 1), (3, 1), (5, 1), (7, 1), (1, 2)]
     return prod([count_trees(s[0], s[1], input_file) for s in slopes])
 
