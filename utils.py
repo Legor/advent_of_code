@@ -1,8 +1,10 @@
 from pathlib import Path
 
 
-def input(file='input.txt', convert_fn=None):
-    lines = Path(file).read_text().splitlines()
+def input(file='input.txt', convert_fn=None, split=True):
+    lines = Path(file).read_text()
+    if split:
+        lines = lines.splitlines()
     if convert_fn:
         lines = [convert_fn(x) for x in lines]
     return lines
