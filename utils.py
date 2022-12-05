@@ -10,6 +10,17 @@ def input(file='input.txt', convert_fn=None, split=True):
     return lines
 
 
+def l_to_i(li):
+    """Map all elements of a list to int"""
+    return list(map(int, li))
+
+
+def chunks(xs, n):
+    """split list into chunks of size n"""
+    n = max(1, n)
+    return (xs[i:i+n] for i in range(0, len(xs), n))
+
+
 def bits_to_dec(arr):
     """
     [False, True, True] --> 3
