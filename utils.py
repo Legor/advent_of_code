@@ -1,3 +1,4 @@
+import copy
 from pathlib import Path
 
 
@@ -8,6 +9,26 @@ def input(file='input.txt', convert_fn=None, split=True):
     if convert_fn:
         lines = [convert_fn(x) for x in lines]
     return lines
+
+
+def grid(file='input.txt'):
+    """Input -> matrice (grid, 2D-list).
+
+       To parse a common grid-like input, e.g.:
+        30373\n
+        25512\n
+        65332"""
+    return input(file=file, convert_fn=lambda r: [int(c) for c in r])
+
+
+def get_mask(arr, cond):
+    """For a 2-d list return a binary array of the same shape (a mask) according to the given condition"""
+
+    mask = copy.deepcopy(arr)
+    for i in range(len(arr)):
+        for j in range(len(arr[0])):
+            mask[i][j] = cond(arr[i][j])
+    return mask
 
 
 def l_to_i(li):
@@ -32,6 +53,7 @@ def bits_to_dec(arr):
 
 
 def prod(numbers):
+    """Return the product of all numbers in the given list."""
     y = 1
     for x in numbers:
         y *= x
