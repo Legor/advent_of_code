@@ -3,9 +3,9 @@ from utils import input
 
 def solve(top_n=1):
     """Solve first or second part of the puzzle"""
-    raw_input = input(split=False)
-    # split on empty lines, convert each number to int, calculate sum
-    splits = [sum(list(map(int, sp.split()))) for sp in raw_input.split('\n\n')]
+    raw_input = input(split_on='\n\n')
+    #  convert each number to int, calculate sum
+    splits = [sum(list(map(int, sp.split()))) for sp in raw_input]
     splits = sorted(splits, reverse=True)
     return sum(splits[:top_n])
 

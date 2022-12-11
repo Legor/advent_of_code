@@ -2,10 +2,10 @@ import copy
 from pathlib import Path
 
 
-def input(file='input.txt', convert_fn=None, split=True):
+def input(file='input.txt', convert_fn=None, split_on='\n'):
     lines = Path(file).read_text()
-    if split:
-        lines = lines.splitlines()
+    if split_on:
+        lines = lines.split(split_on)
     if convert_fn:
         lines = [convert_fn(x) for x in lines]
     return lines

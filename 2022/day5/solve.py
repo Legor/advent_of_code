@@ -25,8 +25,7 @@ def parse_commands(commands_str):
 
 def solve(keep_order=False):
     """Solve first part of the puzzle"""
-    game_input = input(split=False)
-    game_input = game_input.split('\n\n')
+    game_input = input(split_on='\n\n')
 
     crates = parse_crates(game_input[0])
     commands = parse_commands(game_input[1])
