@@ -198,7 +198,13 @@ def input(file='input.txt', convert_fn=None, split_on='\n'):
     if convert_fn:
         lines = [convert_fn(x) for x in lines]
     return lines
-
+def test_results(solve1, solve2, file='solutions.txt'):
+    if Path(file).exists():
+        solutions = input(file, convert_fn=int)
+        print('\u2705' if solve1 == solutions[0] else '\u274C ', f' {solve1} == {solutions[0]}')
+        print('\u2705' if solve2 == solutions[1] else '\u274C ', f' {solve2} == {solutions[1]}')
+    else:
+        print('Skipping test, no solutions found.')
 
 def get_mask(arr, cond):
     """For a 2-d list return a binary array of the same shape (a mask) according to the given condition"""

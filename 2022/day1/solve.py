@@ -1,4 +1,4 @@
-from utils import input
+from utils import input, test_results
 
 
 def solve(top_n=1):
@@ -14,3 +14,6 @@ if __name__ == "__main__":
 
     print(f"Solution to first puzzle: {solve()}")
     print(f"Solution to second  puzzle: {solve(3)}")
+
+    test_results(solve(), solve(3))
+
