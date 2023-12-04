@@ -1,4 +1,5 @@
 import copy
+import re
 from pathlib import Path
 from queue import PriorityQueue
 
@@ -247,3 +248,9 @@ def prod(numbers):
 
 def sign(x):
     return -1 if x < 0 else 1
+
+
+def substring_idx(text, substring):
+    """Return the starting indices of all occurrences of substring in text."""
+    pattern = re.escape(substring)
+    return [match.start() for match in re.finditer(pattern, text)]
