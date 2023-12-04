@@ -2,21 +2,46 @@ import copy
 import re
 from pathlib import Path
 from queue import PriorityQueue
+from copy import deepcopy
 
 
 class Grid:
 
-    def __init__(self):
-        self._data = None
+    def __init__(self, data=None):
+        if data is None:
+            self._data = None
+        else:
+            self._data = deepcopy(data)
 
     def __getitem__(self, item):
+        # Handle single integer indexing
+        if isinstance(item, int):
+            return self._data[item]
+
+        # Handle slice or integer for rows
         y = slice(item[0], item[0] + 1, 1) if isinstance(item[0], int) else item[0]
+        # Set default slice values if None
+        y = slice(y.start if y.start is not None else 0,
+                  y.stop if y.stop is not None else len(self._data),
+                  y.step if y.step is not None else 1)
+
+        # Handle slice or integer for columns
         x = slice(item[1], item[1] + 1, 1) if isinstance(item[1], int) else item[1]
+        # Set default slice values if None
+        x = slice(x.start if x.start is not None else 0,
+                  x.stop if x.stop is not None else len(self._data[0]),
+                  x.step if x.step is not None else 1)
+
+        # Extract the values
         vals = []
-        for r in range(y.start, y.stop):
-            for c in range(x.start, x.stop):
-                vals.append(self._data[r][c])
-        return vals[0] if len(vals) == 1 else vals
+        for r in range(y.start, y.stop, y.step):
+            row = []
+            for c in range(x.start, x.stop, x.step):
+                row.append(self._data[r][c])
+            vals.append(row)
+
+        # Return the result
+        return vals[0] if len(vals) == 1 and len(vals[0]) == 1 else vals
 
     def __setitem__(self, key, value):
         y = slice(key[0], key[0]+1, 1) if isinstance(key[0], int) else key[0]
@@ -44,13 +69,16 @@ class Grid:
         """Add border padding of size with the given value."""
         if isinstance(size, int):
             size = [size] * 4
-        for i in range(size[0]):
-            self._data.insert(0, [value] * self.width)
-        for i in range(size[1]):
-            self._data.insert(self.height, [value] * self.width)
 
-        self._data = [[value] * size[2] + r for r in self._data]
-        self._data = [r + [value] * size[2] for r in self._data]
+        # Pad top and bottom
+        for _ in range(size[0]):  # Top padding
+            self._data.insert(0, [value] * self.width)
+        for _ in range(size[1]):  # Bottom padding
+            self._data.append([value] * self.width)
+
+        # Pad left and right
+        self._data = [[value] * size[2] + (list(r) if isinstance(r, str) else r) + [value] * size[3] for r in
+                      self._data]
 
     def add(self, val):
         """Add value to all elements."""
@@ -61,8 +89,17 @@ class Grid:
         self._data = [[fn(c) for c in r] for r in self._data]
 
     def find(self, val):
-        """Return the indices of the given value."""
-        return [(r, c) for r in range(self.height) for c in range(self.width) if self[(r, c)] == val]
+        """Return the indices of g2the given value."""
+        return [(r, c) for r in range(self.height) for c in range(self.width) if val in self[(r, c)]]
+
+    def neighborhood(self, idx: tuple):
+        """Return the values of the neighborhood (8-connected) of the given index."""
+        indices = []
+        y, x = idx
+        return Grid(self[max(0, y-1):min(self.height, y+2), max(0, x-1):min(self.width, x+2)])
+
+    def flatten(self):
+        return [self._data[r][c] for r in range(self.height) for c in range(self.width)]
 
     def print(self, file):
 
@@ -250,7 +287,20 @@ def sign(x):
     return -1 if x < 0 else 1
 
 
-def substring_idx(text, substring):
+def get_nb_indices(y, x):
+    """Generate a list of 2d neighborhood indices (8-connected) for a given center coordinate.
+    The center coordinate itself is excluded."""
+    return [(j, i) for i in range(x - 1, x + 2) for j in range(y - 1, y + 2) if (j, i) != (y, x)]
+
+
+def substring_idx(text: str, substring: str):
     """Return the starting indices of all occurrences of substring in text."""
     pattern = re.escape(substring)
     return [match.start() for match in re.finditer(pattern, text)]
+
+
+def find_pattern_in_lines(lines: list, pattern: str):
+    """Return the matches of all provided regular expressions in all given lines."""
+    return [list(re.finditer(pattern, line)) for line in lines]
+
+
