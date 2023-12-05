@@ -13,26 +13,19 @@ def solve():
         range_map = []
         for range_line in map_lines[1:]:
             dest_start, source_start, length = map(int, range_line.split())
-            #range_map.update({source_start+i: dest_start+i for i in range(length)})
             range_map.append((dest_start, source_start, length))
-        #maps[map_lines[0]] = range_map
         maps.append(range_map)
 
     locations = []
     for seed in seeds:
-        print('___')
         next_seed = seed
         for m in maps:
-            print('M', m)
-            print(next_seed)
-            found = False
             for range_i in m:
                 dest_start, source_start, length = range_i
                 if source_start <= next_seed < source_start+length:
                     next_seed = dest_start + (next_seed - source_start)
                     break
 
-            #next_seed = m[next_seed]
         locations.append(next_seed)
 
     return min(locations)
@@ -120,5 +113,5 @@ def solve2():
 
 if __name__ == "__main__":
 
-    #print(f"Solution to first puzzle: {solve()}")
-    print(f"Solution to second  puzzle: {solve2()}")
+    print(f"Solution to first puzzle: {solve()}")
+   # print(f"Solution to second  puzzle: {solve2()}")
