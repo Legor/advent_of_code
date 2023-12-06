@@ -62,10 +62,6 @@ def solve2():
     # do an inverse search (going from location to seeds)
     maps = reverse_maps(maps)
 
-    tree = IntervalTree()
-    for start, length in seed_ranges:
-        tree[start:start+length] = True
-
     max_loc = max([m[0]+m[2] for m in maps[0]])
     for i in range(max_loc):
         seed = trace_seed(i, maps)
