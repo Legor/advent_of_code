@@ -1,10 +1,10 @@
-from utils import input
+from utils import parse_input
 from collections import Counter
 
 
 def solve(msg_length=4):
     """Solve first part of the puzzle"""
-    game_input = input()
+    game_input = parse_input()
 
     for line in game_input:
         for i in range(0, len(line)):

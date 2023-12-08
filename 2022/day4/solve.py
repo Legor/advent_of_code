@@ -1,9 +1,9 @@
-from utils import input, l_to_i
+from utils import parse_input, l_to_i
 
 
 def solve(min_matches=None):
     """Solve first part of the puzzle"""
-    game_input = input(convert_fn=lambda x: x.split(','))
+    game_input = parse_input(convert_fn=lambda x: x.split(','))
     game_input = [(l_to_i(x[0].split('-')), l_to_i(x[1].split('-'))) for x in game_input]
 
     count = 0

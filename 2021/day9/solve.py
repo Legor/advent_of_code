@@ -1,4 +1,4 @@
-from utils import input, prod
+from utils import parse_input, prod
 import numpy as np
 from scipy.ndimage.measurements import label
 
@@ -11,7 +11,7 @@ def conn_comp(cave_map, idx):
 
 def solve1():
     """Solve first puzzle"""
-    cave_map = np.array(input(convert_fn=lambda r: [int(c) for c in r]))
+    cave_map = np.array(parse_input(convert_fn=lambda r: [int(c) for c in r]))
     # pad array, to handle edge cases
     cave_map = np.pad(cave_map, (1, 1), 'constant', constant_values=(10, 10))
     risk = 0
@@ -27,7 +27,7 @@ def solve1():
 
 def solve2():
     """Solve second puzzle"""
-    cave_map = np.array(input(convert_fn=lambda r: [int(c) for c in r]))
+    cave_map = np.array(parse_input(convert_fn=lambda r: [int(c) for c in r]))
     # 4 connected components
     kernel = np.array([[0, 1, 0], [1, 0, 1], [0, 1, 0]])
     # use connected components labeling detection

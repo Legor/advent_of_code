@@ -1,4 +1,4 @@
-from utils import input
+from utils import parse_input
 
 
 def get_cycles(commands):
@@ -18,7 +18,7 @@ def get_cycles(commands):
 def solve1():
     """Solve first part of the puzzle"""
 
-    commands = input(convert_fn=lambda s: s.split())
+    commands = parse_input(convert_fn=lambda s: s.split())
     key_cycles = [20, 60, 100, 140, 180, 220]
     cycles = get_cycles(commands)
     return sum([cycles[c-1] * c for c in key_cycles])
@@ -27,7 +27,7 @@ def solve1():
 def solve2():
     """Solve second part of the puzzle"""
 
-    commands = input(convert_fn=lambda s: s.split())
+    commands = parse_input(convert_fn=lambda s: s.split())
     cycles = get_cycles(commands)
 
     i = 0

@@ -1,4 +1,4 @@
-from utils import input, test_results
+from utils import parse_input, test_results
 from torch.utils.data import Dataset, DataLoader
 from torch.nn.functional import pad
 import torch
@@ -6,7 +6,7 @@ import torch
 
 class TextInputData(Dataset):
     def __init__(self, filename):
-        self._data = [list(map(int, sp.split())) for sp in input(split_on='\n\n')]
+        self._data = [list(map(int, sp.split())) for sp in parse_input(split_on='\n\n')]
         # use max sequence length to pad all to the same size
         max_l = max([len(x) for x in self._data])
         # build tensor with padded data

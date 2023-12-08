@@ -1,4 +1,4 @@
-from utils import input
+from utils import parse_input
 from pathlib import Path
 
 
@@ -60,7 +60,7 @@ def calc_sizes(dir_tree):
 def solve1(max_size=100000):
     """Solve first part of the puzzle"""
 
-    game_input = input()
+    game_input = parse_input()
     dirs = build_dir_tree(game_input)
     dir_sizes = calc_sizes(dirs)
     return sum([sz for sz in dir_sizes.values() if sz <= max_size])
@@ -69,7 +69,7 @@ def solve1(max_size=100000):
 def solve2(disk_space=70000000, update_size=30000000):
     """Solve second part of the puzzle"""
 
-    game_input = input()
+    game_input = parse_input()
     dirs = build_dir_tree(game_input)
     dir_sizes = calc_sizes(dirs)
 

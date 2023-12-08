@@ -1,4 +1,4 @@
-from utils import input
+from utils import parse_input
 from collections import Counter
 import functools
 import itertools
@@ -46,7 +46,7 @@ def sort_hands(hand1, hand2, use_joker=False):
 
 if __name__ == "__main__":
 
-    game = input(convert_fn=lambda s: s.split())
+    game = parse_input(convert_fn=lambda s: s.split())
     hands = [g[0] for g in game]
     bets = [g[1] for g in game]
 

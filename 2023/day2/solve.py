@@ -1,4 +1,4 @@
-from utils import input, prod
+from utils import parse_input, prod
 import re
 
 MAX_CUBES = {'red': 12, 'green': 13, 'blue': 14}
@@ -7,7 +7,7 @@ color_pattern = r'(\d+) (red|green|blue)'
 
 def parse():
     game_pattern = r'Game (\d+): (.*)'
-    games = input(convert_fn=lambda line: re.match(game_pattern, line))
+    games = parse_input(convert_fn=lambda line: re.match(game_pattern, line))
     return {int(game.group(1)): game.group(2).split(';') for game in games}
 
 

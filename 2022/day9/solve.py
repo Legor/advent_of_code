@@ -1,4 +1,4 @@
-from utils import input
+from utils import parse_input
 import numpy as np
 
 
@@ -7,7 +7,7 @@ def solve(length):
 
     moves = {'R': (-1, 0), 'L': (1, 0), 'U': (0, 1), 'D': (0, -1)}
     visited = {(0, 0)}
-    commands = input(convert_fn=lambda s: s.split())
+    commands = parse_input(convert_fn=lambda s: s.split())
     rope = [(0, 0) for i in range(length)]
     for c in commands:
         move = moves[c[0]]

@@ -1,4 +1,4 @@
-from utils import input
+from utils import parse_input
 import numpy as np
 import scipy.ndimage
 from skimage.morphology import flood_fill
@@ -20,7 +20,7 @@ def surface_area(node_coords, grid):
 
 def solve(fill_holes=False):
 
-    cubes = input(convert_fn=lambda x: [int(c) for c in x.split(',')])
+    cubes = parse_input(convert_fn=lambda x: [int(c) for c in x.split(',')])
     grid = np.zeros([np.max(cubes)] * 3)
     for c in cubes:
         grid[c[0]-1, c[1]-1, c[2]-1] = 1

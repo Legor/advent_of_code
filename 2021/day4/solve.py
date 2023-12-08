@@ -1,4 +1,4 @@
-from utils import input
+from utils import parse_input
 from collections import OrderedDict
 import numpy as np
 
@@ -7,7 +7,7 @@ def solve(won_board_i):
     """Solve first or second puzzle"""
     BOARD_SIZE = 5
 
-    r_in = input()
+    r_in = parse_input()
     numbers = [int(n) for n in r_in[0].split(',')]
     boards = [r_in[i:i + BOARD_SIZE] for i in range(2, len(r_in) - (BOARD_SIZE-1), (BOARD_SIZE+1))]
     boards = [[row.split() for row in b] for b in boards]

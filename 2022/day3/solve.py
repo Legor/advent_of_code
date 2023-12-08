@@ -1,4 +1,4 @@
-from utils import input
+from utils import parse_input, test_results
 
 
 def score(letter):
@@ -11,7 +11,7 @@ def score(letter):
 def solve():
     """Solve first part of the puzzle"""
 
-    game_input = input()
+    game_input = parse_input()
     game_input = [(x[:int(len(x)/2)], x[int(len(x)/2):]) for x in game_input]
     result = 0
     for t in game_input:
@@ -25,7 +25,7 @@ def solve():
 def solve2():
     """Solve second part of the puzzle"""
 
-    game_input = input()
+    game_input = parse_input()
     result = 0
     for a, b, c in zip(*[iter(game_input)] * 3):
         for t in a:
@@ -39,3 +39,5 @@ if __name__ == "__main__":
 
     print(f"Solution to first puzzle: {solve()}")
     print(f"Solution to second  puzzle: {solve2()}")
+
+    test_results(solve(), solve2())

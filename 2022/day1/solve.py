@@ -1,9 +1,9 @@
-from utils import input, test_results
+from utils import parse_input, test_results
 
 
 def solve(top_n=1):
     """Solve first or second part of the puzzle"""
-    raw_input = input(split_on='\n\n')
+    raw_input = parse_input(split_on='\n\n')
     #  convert each number to int, calculate sum
     splits = [sum(list(map(int, sp.split()))) for sp in raw_input]
     splits = sorted(splits, reverse=True)

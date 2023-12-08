@@ -1,10 +1,10 @@
 from itertools import combinations
-from utils import prod, input
+from utils import prod, parse_input
 
 
 def solve(combination_size):
     """Solve first or second part of the puzzle"""
-    raw_input = input(convert_fn=int)
+    raw_input = parse_input(convert_fn=int)
     for c in combinations(raw_input, combination_size):
         if sum(c) == 2020:
             return prod(c)

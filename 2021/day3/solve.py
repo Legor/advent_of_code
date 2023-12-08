@@ -1,11 +1,11 @@
-from utils import input, bits_to_dec
+from utils import parse_input, bits_to_dec
 import numpy as np
 
 
 def solve1():
     """Solve first puzzle"""
     # parse to matrix
-    r_in = np.array(input(convert_fn=lambda x: [int(n) for n in list(x)]))
+    r_in = np.array(parse_input(convert_fn=lambda x: [int(n) for n in list(x)]))
     # get dominant bit per column
     epsilon = np.count_nonzero(r_in, axis=0) > (r_in.shape[0] / 2)
     gamma = np.invert(epsilon)
@@ -22,7 +22,7 @@ def rec_search(in_data, c_i, comp_op):
 def solve2():
     """Solve second puzzle"""
     # parse to matrix
-    r_in = np.array(input(convert_fn=lambda x: [int(n) for n in list(x)]))
+    r_in = np.array(parse_input(convert_fn=lambda x: [int(n) for n in list(x)]))
     oxy = rec_search(r_in, 0, lambda x: np.count_nonzero(x) >= (len(x) / 2))[0]
     scrub = rec_search(r_in, 0, lambda x: np.count_nonzero(x) < (len(x) / 2))[0]
     # convert to bit patterns to 16 bit format for np.packbits

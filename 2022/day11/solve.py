@@ -1,4 +1,4 @@
-from utils import input, prod
+from utils import parse_input, prod
 
 
 class Monkey:
@@ -27,7 +27,7 @@ class Monkey:
 
 def solve(n_rounds, worry_divisor):
 
-    raw_input = input(split_on='\n\n')
+    raw_input = parse_input(split_on='\n\n')
     monkeys = []
     for s in raw_input:
         monkeys.append(Monkey(s, worry_divisor))

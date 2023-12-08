@@ -1,10 +1,10 @@
-from utils import input
+from utils import parse_input
 import numpy as np
 
 
 def solve1():
     """Solve first puzzle"""
-    r_in = input(convert_fn=lambda x: x.split())
+    r_in = parse_input(convert_fn=lambda x: x.split())
     mv = {'forward': (0, 1), 'down': (1, 0),  'up': (-1, 0)}
     # multiply each movement vector with length
     r_in = [np.array(mv[x[0]]) * int(x[1]) for x in r_in]
@@ -13,7 +13,7 @@ def solve1():
 
 def solve2():
     """Solve second puzzle"""
-    r_in = input(convert_fn=lambda x: x.split())
+    r_in = parse_input(convert_fn=lambda x: x.split())
     mv = {'forward': (1, 1, 0), 'down': (0, 0, 1), 'up': (0, 0, -1)}
     r_in = [np.array(mv[x[0]]) * int(x[1]) for x in r_in]
 

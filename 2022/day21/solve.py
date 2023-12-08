@@ -1,4 +1,4 @@
-from utils import input
+from utils import parse_input
 from operator import add, sub, mul, truediv
 
 ops = {'+': add, '-': sub, '*': mul, '/': truediv}
@@ -21,7 +21,7 @@ def solve_monkeys(monkeys):
 
 def solve1():
 
-    monkeys = input(convert_fn=lambda x: x.split(': '))
+    monkeys = parse_input(convert_fn=lambda x: x.split(': '))
     monkeys = {m[0]: int(m[1]) if m[1].isnumeric() else m[1].split() for m in monkeys}
     monkeys = solve_monkeys(monkeys)
     return monkeys['root']
@@ -29,7 +29,7 @@ def solve1():
 
 def solve2():
 
-    monkeys = input(convert_fn=lambda x: x.split(': '))
+    monkeys = parse_input(convert_fn=lambda x: x.split(': '))
     monkeys = {m[0]: int(m[1]) if m[1].isnumeric() else m[1].split() for m in monkeys}
     root = monkeys.pop('root')
 

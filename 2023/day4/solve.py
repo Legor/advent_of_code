@@ -1,9 +1,9 @@
-from utils import input
+from utils import parse_input
 
 
 def solve():
     """Solve first part of the puzzle"""
-    lines = input(convert_fn=lambda s: s.split('|'))
+    lines = parse_input(convert_fn=lambda s: s.split('|'))
     guesses = [line[0].split(':')[1].split() for line in lines]
     winning_numbers = [line[1].split() for line in lines]
 
@@ -25,7 +25,7 @@ def scratch(cards, c_i):
 
 def solve2():
     """Solve second part of the puzzle"""
-    lines = input(convert_fn=lambda s: s.split('|'))
+    lines = parse_input(convert_fn=lambda s: s.split('|'))
     guesses = [line[0].split(':')[1].split() for line in lines]
     winning_numbers = [line[1].split() for line in lines]
 

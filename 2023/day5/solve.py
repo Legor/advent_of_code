@@ -1,9 +1,9 @@
-from utils import input
+from utils import parse_input
 
 
 def get_seeds_and_maps():
     """parse the input and create the mappings"""
-    blocks = input(split_on='\n\n')
+    blocks = parse_input(split_on='\n\n')
     seeds = list(map(int, blocks[0].split('seeds:')[1].split()))
     maps = []
     for block in blocks[1:]:

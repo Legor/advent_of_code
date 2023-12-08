@@ -1,8 +1,9 @@
-from utils import input
+from utils import parse_input, test_results
 
 hands_map = {'A': 'rock', 'X': 'rock', 'B': 'paper', 'Y': 'paper', 'C': 'scissors', 'Z': 'scissors'}
 winning_hands = {'rock': 'paper', 'paper': 'scissors', 'scissors': 'rock'}
 loosing_hands = {v: k for k, v in winning_hands.items()}
+
 
 def score(elf, me):
     """Calculate the round score based on chosen hands."""
@@ -20,7 +21,7 @@ def score(elf, me):
 
 def solve1():
     """Solve first part of the puzzle"""
-    game_input = input(convert_fn=lambda x: x.split())
+    game_input = parse_input(convert_fn=lambda x: x.split())
     total_score = 0
     for line in game_input:
         elf, me = hands_map[line[0]], hands_map[line[1]]
@@ -31,7 +32,7 @@ def solve1():
 
 def solve2():
     """Solve second part of the puzzle"""
-    game_input = input(convert_fn=lambda x: x.split())
+    game_input = parse_input(convert_fn=lambda x: x.split())
     total_score = 0
     for line in game_input:
         elf = hands_map[line[0]]
@@ -48,3 +49,5 @@ if __name__ == "__main__":
 
     print(f"Solution to first puzzle: {solve1()}")
     print(f"Solution to second  puzzle: {solve2()}")
+
+    test_results(solve1(), solve2())

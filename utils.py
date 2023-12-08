@@ -118,7 +118,7 @@ class Grid:
         65332"""
 
         g = cls()
-        g._data = input(file=file)
+        g._data = parse_input(file=file)
         if conv_fn is not None:
             g.apply_fn(conv_fn)
         return g
@@ -143,22 +143,57 @@ class Grid:
 
 
 class Graph:
+    """A simple implementation of a graph data structure supporting directed graphs with optional weighted edges."""
 
     def __init__(self):
 
         self._edges = {}
 
     def __getitem__(self, item):
+        """Enables getting the weight of the edge between two vertices.
+
+        Args:
+            item (tuple): A tuple (u, v) representing an edge from vertex u to vertex v.
+
+        Returns:
+            The weight of the edge from u to v.
+        """
         return self._edges[item[0]][item[1]]
 
     @property
     def n_vertices(self):
+        """Returns the number of vertices in the graph.
+
+        Returns:
+            int: The count of vertices.
+        """
         return len(self._edges)
 
     def neighbors(self, vert_i):
+        """Retrieves the neighboring vertices of a given vertex.
+
+        Args:
+            vert_i: The vertex for which neighbors are requested.
+
+        Returns:
+            list: A list of neighboring vertices of vert_i.
+        """
         return list(self._edges[vert_i])
 
     def add_edge(self, u, v, weight=1):
+        """Adds an edge from vertex u to vertex v with an optional weight.
+
+        Examples:
+            g = Graph()
+            g.add_edge(1, 2)  # Adds an edge from vertex 1 to vertex 2
+            g.add_edge(1, 3)  # Adds another edge from vertex 1 to vertex 3
+            g.add_edge(1, [2, 3, 4])  # Adds edges from vertex 1 to vertices 2, 3, and 4
+
+        Args:
+            u: The starting vertex of the edge.
+            v: The ending vertex of the edge. Can be a single vertex or a list of vertices.
+            weight (int, optional): The weight of the edge. Defaults to 1.
+        """
 
         if u not in self._edges:
             self._edges[u] = {}
@@ -169,6 +204,7 @@ class Graph:
             self._edges[u][k] = weight
 
     def print(self):
+        """Prints a representation of the graph. Lists each vertex and its corresponding edges with weights."""
         for e, n in self._edges.items():
             print(f'{e} -> {n}')
 
@@ -229,7 +265,7 @@ def dijkstra(graph: 'Graph', start, end):
     return previous
 
 
-def input(file='input.txt', convert_fn=None, split_on='\n'):
+def parse_input(file='input.txt', convert_fn=None, split_on='\n'):
     lines = Path(file).read_text()
     if split_on:
         lines = lines.split(split_on)
@@ -238,7 +274,7 @@ def input(file='input.txt', convert_fn=None, split_on='\n'):
     return lines
 def test_results(solve1, solve2, file='solutions.txt'):
     if Path(file).exists():
-        solutions = input(file, convert_fn=int)
+        solutions = parse_input(file, convert_fn=int)
         print('\u2705' if solve1 == solutions[0] else '\u274C ', f' {solve1} == {solutions[0]}')
         print('\u2705' if solve2 == solutions[1] else '\u274C ', f' {solve2} == {solutions[1]}')
     else:

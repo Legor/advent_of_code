@@ -1,4 +1,4 @@
-from utils import input, chunks, l_to_i
+from utils import parse_input, chunks, l_to_i
 
 
 def parse_crates(crates_str):
@@ -25,7 +25,7 @@ def parse_commands(commands_str):
 
 def solve(keep_order=False):
     """Solve first part of the puzzle"""
-    game_input = input(split_on='\n\n')
+    game_input = parse_input(split_on='\n\n')
 
     crates = parse_crates(game_input[0])
     commands = parse_commands(game_input[1])

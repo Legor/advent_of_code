@@ -1,9 +1,9 @@
-from utils import input
+from utils import parse_input
 
 
 def solve(encryption_key=1, n_mix=1):
 
-    numbers = input(convert_fn=lambda x: int(x) * encryption_key)
+    numbers = parse_input(convert_fn=lambda x: int(x) * encryption_key)
     indices = list(range(len(numbers)))
     N = len(numbers)
 

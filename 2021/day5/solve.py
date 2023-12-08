@@ -1,10 +1,10 @@
-from utils import input
+from utils import parse_input
 import numpy as np
 
 
 def solve(no_diag=False):
     """Solve first or second puzzle"""
-    r_in = input(convert_fn=lambda x: x.split('->'))
+    r_in = parse_input(convert_fn=lambda x: x.split('->'))
     r_in = [(c[0].split(','), c[1].split(',')) for c in r_in]
     r_in = [sorted([(int(c[0]), int(c[1])) for c in e]) for e in r_in]
     if no_diag:

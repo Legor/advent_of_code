@@ -1,4 +1,4 @@
-from utils import input
+from utils import parse_input
 import math
 
 
@@ -26,6 +26,6 @@ def solve(times, distances):
 
 if __name__ == "__main__":
 
-    times, distances = input(convert_fn=lambda s: s.split()[1:])
+    times, distances = parse_input(convert_fn=lambda s: s.split()[1:])
     print(f"Solution to first puzzle: {solve(times, distances)}")
     print(f"Solution to second  puzzle: {solve([''.join(times)], [''.join(distances)])}")

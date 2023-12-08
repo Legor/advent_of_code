@@ -1,9 +1,9 @@
-from utils import input, get_nb_indices, find_pattern_in_lines
+from utils import parse_input, get_nb_indices, find_pattern_in_lines
 
 
 def solve():
     """Solve first part of the puzzle"""
-    lines = input()
+    lines = parse_input()
     # find all numbers per row
     numbers = find_pattern_in_lines(lines, r'\d+')
     # find all special symbols per row (none digit and none '.')
@@ -27,7 +27,7 @@ def solve():
 
 def solve2():
     """Solve first part of the puzzle"""
-    lines = input()
+    lines = parse_input()
     # find all numbers per row
     numbers = find_pattern_in_lines(lines, r'\d+')
     # find all special symbols per row (none digit and none '.')

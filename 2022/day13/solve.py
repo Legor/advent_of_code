@@ -1,4 +1,4 @@
-from utils import input
+from utils import parse_input
 import functools
 
 
@@ -38,7 +38,7 @@ def sort_fn(left, right):
 def solve1():
 
     # pad grid for easier processing
-    signals = input(split_on='\n\n', convert_fn=lambda s: s.splitlines())
+    signals = parse_input(split_on='\n\n', convert_fn=lambda s: s.splitlines())
     sum = 0
     for i, sig in enumerate(signals):
         left = eval(sig[0])
@@ -51,7 +51,7 @@ def solve1():
 def solve2():
 
     # pad grid for easier processing
-    signals = input()
+    signals = parse_input()
     signals += ['[[2]]', '[[6]]']
     signals = [eval(s) for s in signals if len(s) > 0]
     sort_sig = sorted(signals, key=functools.cmp_to_key(sort_fn))
