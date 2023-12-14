@@ -22,14 +22,12 @@ class Grid:
 
         # Handle slice or integer for rows
         y = slice(item[0], item[0] + 1, 1) if isinstance(item[0], int) else item[0]
-        # Set default slice values if None
         y = slice(y.start if y.start is not None else 0,
                   y.stop if y.stop is not None else len(self._data),
                   y.step if y.step is not None else 1)
 
         # Handle slice or integer for columns
         x = slice(item[1], item[1] + 1, 1) if isinstance(item[1], int) else item[1]
-        # Set default slice values if None
         x = slice(x.start if x.start is not None else 0,
                   x.stop if x.stop is not None else len(self._data[0]),
                   x.step if x.step is not None else 1)
@@ -37,13 +35,13 @@ class Grid:
         # Extract the values
         vals = []
         for r in range(y.start, y.stop, y.step):
-            row = []
-            for c in range(x.start, x.stop, x.step):
-                row.append(self._data[r][c])
+            row = [self._data[r][c] for c in range(x.start, x.stop, x.step)]
             vals.append(row)
 
         # Return the result
-        return vals[0] if len(vals) == 1 and len(vals[0]) == 1 else vals
+        if len(vals) == 1:
+            return vals[0]  # Return a single list if one row/column
+        return vals
 
     def __setitem__(self, key, value):
         y = slice(key[0], key[0]+1, 1) if isinstance(key[0], int) else key[0]
@@ -51,6 +49,9 @@ class Grid:
         for r in range(y.start, y.stop):
             for c in range(x.start, x.stop):
                 self._data[r][c] = value
+
+    def __eq__(self, other):
+        return False not in [self._data[y][x] == other._data[y][x] for y in range(self.shape[0]) for x in range(self.shape[1])]
 
     @property
     def width(self):
@@ -82,6 +83,13 @@ class Grid:
         self._data = [[value] * size[2] + (list(r) if isinstance(r, str) else r) + [value] * size[3] for r in
                       self._data]
 
+    def transpose(self):
+        # Convert strings to lists if necessary
+        grid = [list(row) if isinstance(row, str) else row for row in self._data]
+
+        # Transpose the grid
+        return Grid(list(map(list, zip(*grid))))
+
     def add(self, val):
         """Add value to all elements."""
         self._data = [[c + val for c in row] for row in self._data]
@@ -91,7 +99,7 @@ class Grid:
         self._data = [[fn(c) for c in r] for r in self._data]
 
     def find(self, val):
-        """Return the indices of g2the given value."""
+        """Return the indices of the given value."""
         return [(r, c) for r in range(self.height) for c in range(self.width) if val in self[(r, c)]]
 
     def neighborhood(self, idx: tuple):
@@ -109,6 +117,8 @@ class Grid:
             file.write("".join([str(s) for s in r])+'\n')
         file.write('\n')
 
+    def __str__(self):
+        return '\n'.join([("".join([str(s) for s in r])) for r in self._data])
 
     @classmethod
     def from_file(cls, file='input.txt', conv_fn=None):
@@ -120,24 +130,24 @@ class Grid:
         65332"""
 
         g = cls()
-        g._data = parse_input(file=file)
+        g._data = parse_input(file=file, convert_fn=list)
         if conv_fn is not None:
             g.apply_fn(conv_fn)
         return g
 
     @classmethod
-    def zeros(cls, shape):
+    def create(cls, shape, value=0):
         """Return a Grid of given shape, with all values set to zero."""
         g = cls()
         if isinstance(shape, int):
             shape = (shape, shape)
-        g._data = [[0] * shape[1] for r in range(shape[0])]
+        g._data = [[value] * shape[1] for r in range(shape[0])]
         return g
 
     @classmethod
     def cross(cls, sz):
         assert sz % 2, 'Mask size must be uneven.'
-        g = cls.zeros(sz)
+        g = cls.create(sz)
         g._data[sz // 2] = [1] * sz
         for i in range(sz):
             g._data[i][sz // 2] = 1
