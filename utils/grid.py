@@ -128,7 +128,7 @@ class Grid:
     def flatten(self):
         return [self._data[r][c] for r in range(self.height) for c in range(self.width)]
 
-    def print(self, file_path: Union[str, Path]):
+    def write(self, file_path: Union[str, Path]):
         file_path = Path(file_path)
         if file_path.exists():
             raise IOError(f"Not allowed to overwrite file: {file_path}")
