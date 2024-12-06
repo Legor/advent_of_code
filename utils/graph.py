@@ -1,11 +1,7 @@
-
-
-
 class Graph:
     """A simple implementation of a graph data structure supporting directed graphs with optional weighted edges."""
 
     def __init__(self):
-
         self._edges = {}
         self._values = {}
 
@@ -73,7 +69,7 @@ class Graph:
         while queue:
             node, steps = queue.pop()
             if steps == max_steps:
-                #visited.add(node)
+                # visited.add(node)
                 visited.append(node)
             else:
                 for neighbor in self.neighbors(node):
@@ -90,36 +86,50 @@ class Graph:
     def print(self):
         """Prints a representation of the graph. Lists each vertex and its corresponding edges with weights."""
         for e, n in self._edges.items():
-            print(f'{e} -> {n}')
+            print(f"{e} -> {n}")
 
     @classmethod
-    def from_grid(cls, grid: 'Grid', nb_mask: 'Grid', decision_fn, repeat_grid=None):
+    def from_grid(cls, grid: "Grid", nb_mask: "Grid", decision_fn, repeat_grid=None):
         """Convert a grid into a Graph, using the supplied neighborhood mask and decision function.
 
-            The mask defines the considered local neighborhood of each grid cell with the respective pixel in the middle.
-            The mask is a binary mask, with 1 stating the element should be considered, and 0 otherwise.
-            The decision_fn is executed on each potential grid-pair and should return a positive value (an edge weight)
-            if the two graph nodes are considered neighbors.
-            repeat_grid controls if the grid is allowed to repeat, i.e. nodes will connect to neighbors even if they
-            were beyond the grid
+        The mask defines the considered local neighborhood of each grid cell with the respective pixel in the middle.
+        The mask is a binary mask, with 1 stating the element should be considered, and 0 otherwise.
+        The decision_fn is executed on each potential grid-pair and should return a positive value (an edge weight)
+        if the two graph nodes are considered neighbors.
+        repeat_grid controls if the grid is allowed to repeat, i.e. nodes will connect to neighbors even if they
+        were beyond the grid
         """
+
         def __check_coords(coords):
-            return min(coords) >= 0 and coords[0] < grid.height and coords[1] >= 0 and coords[1] < grid.width
+            return (
+                min(coords) >= 0
+                and coords[0] < grid.height
+                and coords[1] >= 0
+                and coords[1] < grid.width
+            )
 
         new_graph = cls()
         # map coords to distinct indices
         coord_i = []
         # relative neighbor coordinates
-        nb_coords = [(x - nb_mask.shape[0] // 2, y - nb_mask.shape[1] // 2) for x in range(nb_mask.shape[0])
-                     for y in range(nb_mask.shape[1]) if nb_mask[x, y][0] == 1]
+        nb_coords = [
+            (x - nb_mask.shape[0] // 2, y - nb_mask.shape[1] // 2)
+            for x in range(nb_mask.shape[0])
+            for y in range(nb_mask.shape[1])
+            if nb_mask[x, y][0] == 1
+        ]
         nb_coords.remove((0, 0))
         for r in range(grid.height):
             for c in range(grid.width):
-                neighbors = [(r+nb_coord[0], c+nb_coord[1]) for nb_coord in nb_coords]
+                neighbors = [
+                    (r + nb_coord[0], c + nb_coord[1]) for nb_coord in nb_coords
+                ]
                 if not repeat_grid:
                     neighbors = [nb for nb in neighbors if __check_coords(nb)]
                 else:
-                    neighbors = [(nb[0]%grid.height, nb[1]%grid.width) for nb in neighbors]
+                    neighbors = [
+                        (nb[0] % grid.height, nb[1] % grid.width) for nb in neighbors
+                    ]
                 for nb in neighbors:
                     weight = decision_fn(grid[(r, c)], grid[nb])
                     if weight > 0:
@@ -127,7 +137,7 @@ class Graph:
                             coord_i.append((r, c))
                         if nb not in coord_i:
                             coord_i.append(nb)
-                        #new_graph.add_edge(coord_i.index((r, c)), coord_i.index(nb), weight, grid[(r, c)][0])
+                        # new_graph.add_edge(coord_i.index((r, c)), coord_i.index(nb), weight, grid[(r, c)][0])
                         new_graph.add_edge((r, c), [nb], weight, grid[(r, c)][0])
 
         return new_graph

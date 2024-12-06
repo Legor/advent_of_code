@@ -1,7 +1,7 @@
 from queue import PriorityQueue
 
 
-def dijkstra(graph: 'Graph', start, end):
+def dijkstra(graph: "Graph", start, end):
     """Solve shortest path using Dijkstra and a priority queue."""
 
     dist = {v: 10000 for v in graph._edges}
@@ -12,7 +12,6 @@ def dijkstra(graph: 'Graph', start, end):
     pq = PriorityQueue()
     pq.put((0, start))
     while not pq.empty():
-
         (_, cur_v) = pq.get()
         if end is not None and cur_v == end:
             break

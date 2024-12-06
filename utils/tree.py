@@ -1,4 +1,3 @@
-
 class TreeNode:
     """A node in a binary tree."""
 
@@ -52,12 +51,16 @@ class BinaryTree:
 
         if left_value is not None:
             if left_value not in self.leafs:
-                self.leafs[left_value] = TreeNode(left_value) if left_value != value else node
+                self.leafs[left_value] = (
+                    TreeNode(left_value) if left_value != value else node
+                )
             node.left = self.leafs[left_value]
 
         if right_value is not None:
             if right_value not in self.leafs:
-                self.leafs[right_value] = TreeNode(right_value) if right_value != value else node
+                self.leafs[right_value] = (
+                    TreeNode(right_value) if right_value != value else node
+                )
             node.right = self.leafs[right_value]
 
         return node
