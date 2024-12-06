@@ -1,7 +1,8 @@
 from copy import deepcopy
 
 from utils.parsing import parse_input
-
+from typing import  Union
+from pathlib import Path
 
 class Grid:
     def __init__(self, data=None):
@@ -127,10 +128,13 @@ class Grid:
     def flatten(self):
         return [self._data[r][c] for r in range(self.height) for c in range(self.width)]
 
-    def print(self, file):
-        for r in self._data:
-            file.write("".join([str(s) for s in r]) + "\n")
-        file.write("\n")
+    def print(self, file_path: Union[str, Path]):
+        file_path = Path(file_path)
+        if file_path.exists():
+            raise IOError(f"Not allowed to overwrite file: {file_path}")
+        with open(file_path, "w") as out:
+            for r in self._data:
+                out.write("".join([str(s) for s in r]) + "\n")
 
     def __str__(self):
         return "\n".join([("".join([str(s) for s in r])) for r in self._data])
