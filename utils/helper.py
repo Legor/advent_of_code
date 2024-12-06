@@ -1,8 +1,8 @@
 # small simple helper functions
 import copy
-from functools import reduce
 import math
 import re
+from functools import reduce
 
 
 def get_mask(arr, cond):

@@ -1,4 +1,5 @@
 from copy import deepcopy
+
 from utils.parsing import parse_input
 
 
