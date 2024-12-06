@@ -1,3 +1,6 @@
+from utils import Grid
+
+
 class Graph:
     """A simple implementation of a graph data structure supporting directed graphs with optional weighted edges."""
 
