@@ -1,5 +1,5 @@
 from queue import PriorityQueue
-from utils import Graph
+from utils.graph import Graph
 
 
 def dijkstra(graph: "Graph", start, end):

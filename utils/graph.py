@@ -1,4 +1,4 @@
-from utils import Grid
+from utils.grid import Grid
 
 
 class Graph:
