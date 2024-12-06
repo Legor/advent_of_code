@@ -1,5 +1,5 @@
 from copy import deepcopy
-
+from utils import parse_input
 
 class Grid:
 
