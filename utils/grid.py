@@ -1,7 +1,7 @@
 from copy import deepcopy
 
 from utils.parsing import parse_input
-from typing import  Union
+from typing import Union
 from pathlib import Path
 
 class Grid:
@@ -155,8 +155,8 @@ class Grid:
         return g
 
     @classmethod
-    def create(cls, shape, value=0):
-        """Return a Grid of given shape, with all values set to zero."""
+    def create(cls, shape: Union[int, tuple[int, int]], value=0):
+        """Return a Grid of given shape, with all values set to a given value (default 0)."""
         g = cls()
         if isinstance(shape, int):
             shape = (shape, shape)
@@ -171,3 +171,4 @@ class Grid:
         for i in range(sz):
             g._data[i][sz // 2] = 1
         return g
+
