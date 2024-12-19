@@ -43,6 +43,19 @@ def dijkstra(graph: "Graph", start, end: Optional = None):
 
     return previous
 
+def shortest_path(graph, start, end):
+    """Get the shortest path from the start node to the end in the given graph.
+
+    Returns the path, or None if no path is possible."""
+    sp = dijkstra(graph, start=start, end=end)
+    path = []
+    current = end
+    while current != start:
+        if current is None:
+            return None
+        path.append(current)
+        current = sp[current]
+    return path
 
 def dfs_longest_path(graph, start, end):
     def dfs(node):
