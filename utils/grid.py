@@ -72,6 +72,11 @@ class Grid:
         assert self._data is not None
         return self.height, self.width
 
+    def set_value(self, coordinates, value):
+        """Set all grid cells of the given coordinates to the given value."""
+        for c in coordinates:
+            self[c] = value
+
     def pad_border(self, value, size):
         """Add border padding of size with the given value."""
         if isinstance(size, int):
